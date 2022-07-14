@@ -3,10 +3,8 @@ Private Sub ExitForm_Click()
 End Sub
 
 Private Sub RunQuery_Click()
-    Results = True
     NumeroDeDatos = ActiveSheet.Range("B" & Rows.Count).End(xlUp).Row
     Me.LISTA.Clear
-
 
     'mensaje de alerta para error
     If Nombre = "" Then
@@ -21,13 +19,12 @@ Private Sub RunQuery_Click()
         End If
     End If
     
-    
     'creacion de la Query
     If Nombre <> "" Then
         y = 0
         For Fila = 4 To NumeroDeDatos
             Descripcion = ActiveSheet.Cells(Fila, 2).Value
-            If Descripcion Like "*" & Me.Nombre.Value & "*" Then
+            If UCase(Descripcion) Like "*" & UCase(Me.Nombre.Value) & "*" Then
                 Me.LISTA.AddItem
                 Me.LISTA.List(y, 0) = ActiveSheet.Cells(Fila, 2).Value
                 Me.LISTA.List(y, 1) = ActiveSheet.Cells(Fila, 3).Value
@@ -38,8 +35,6 @@ Private Sub RunQuery_Click()
                 Me.LISTA.List(y, 6) = ActiveSheet.Cells(Fila, 8).Value
                 
                 y = y + 1
-            Else
-                Resluts = False
             End If
         Next
     End If
@@ -48,7 +43,7 @@ Private Sub RunQuery_Click()
         y = 0
         For Fila = 4 To NumeroDeDatos
             Descripcion = ActiveSheet.Cells(Fila, 3).Value
-            If Descripcion Like "*" & Me.Autor.Value & "*" Then
+            If UCase(Descripcion) Like "*" & UCase(Me.Autor.Value) & "*" Then
                 Me.LISTA.AddItem
                 Me.LISTA.List(y, 0) = ActiveSheet.Cells(Fila, 2).Value
                 Me.LISTA.List(y, 1) = ActiveSheet.Cells(Fila, 3).Value
@@ -59,8 +54,6 @@ Private Sub RunQuery_Click()
                 Me.LISTA.List(y, 6) = ActiveSheet.Cells(Fila, 8).Value
                 
                 y = y + 1
-            Else
-                Resluts = False
             End If
         Next
     End If
@@ -69,7 +62,7 @@ Private Sub RunQuery_Click()
         y = 0
         For Fila = 4 To NumeroDeDatos
             Descripcion = ActiveSheet.Cells(Fila, 4).Value
-            If Descripcion Like "*" & Me.RatingDeUsuarios.Value & "*" Then
+            If UCase(Descripcion) Like "*" & UCase(Me.RatingDeUsuarios.Value) & "*" Then
                 Me.LISTA.AddItem
                 Me.LISTA.List(y, 0) = ActiveSheet.Cells(Fila, 2).Value
                 Me.LISTA.List(y, 1) = ActiveSheet.Cells(Fila, 3).Value
@@ -80,8 +73,6 @@ Private Sub RunQuery_Click()
                 Me.LISTA.List(y, 6) = ActiveSheet.Cells(Fila, 8).Value
                 
                 y = y + 1
-            Else
-                Resluts = False
             End If
         Next
     End If
@@ -90,7 +81,7 @@ Private Sub RunQuery_Click()
         y = 0
         For Fila = 4 To NumeroDeDatos
             Descripcion = ActiveSheet.Cells(Fila, 7).Value
-            If Descripcion Like "*" & Me.Año.Value & "*" Then
+            If UCase(Descripcion) Like "*" & UCase(Me.Año.Value) & "*" Then
                 Me.LISTA.AddItem
                 Me.LISTA.List(y, 0) = ActiveSheet.Cells(Fila, 2).Value
                 Me.LISTA.List(y, 1) = ActiveSheet.Cells(Fila, 3).Value
@@ -101,8 +92,6 @@ Private Sub RunQuery_Click()
                 Me.LISTA.List(y, 6) = ActiveSheet.Cells(Fila, 8).Value
                 
                 y = y + 1
-            Else
-                Resluts = False
             End If
         Next
     End If
@@ -111,7 +100,7 @@ Private Sub RunQuery_Click()
         y = 0
         For Fila = 4 To NumeroDeDatos
             Descripcion = ActiveSheet.Cells(Fila, 8).Value
-            If Descripcion Like "*" & Me.Genero.Value & "*" Then
+            If UCase(Descripcion) Like "*" & UCase(Me.Genero.Value) & "*" Then
                 Me.LISTA.AddItem
                 Me.LISTA.List(y, 0) = ActiveSheet.Cells(Fila, 2).Value
                 Me.LISTA.List(y, 1) = ActiveSheet.Cells(Fila, 3).Value
@@ -122,14 +111,12 @@ Private Sub RunQuery_Click()
                 Me.LISTA.List(y, 6) = ActiveSheet.Cells(Fila, 8).Value
                 
                 y = y + 1
-            Else
-                Resluts = False
             End If
         Next
     End If
     
     'mensaje de alerta por falta de coincidencias
-    If Resluts = False Then
+    If LISTA.ListCount = 0 Then
         MsgBox "Su búsqueda no regreso ningún resultado"
     End If
     
